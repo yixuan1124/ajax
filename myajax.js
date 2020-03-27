@@ -40,6 +40,14 @@ window._ = {
         xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
         xhr.send(_.jsontourl(config));
     },
+    jsonp:function(url,config,callbackname,callback){
+        var oscript = document.createElement("script");
+        oscript.type = "text/script";
+        oscript.src = url+"?"+_.jsontourl(config)+"&cllback="+callbackname;
+        window[callbackname] = callback;
+        document.body = appendChild(oscript);
+        document.body = removeChild(oscript);
+    },
     jsontourl: function (obj) {
         var res = [];
         for (k in obj) {
